@@ -58,7 +58,7 @@ subsequent SAML responses.
 ## Installation
 
 ```bash
-git clone https://github.com/fujifish/samling.git
+git clone https://github.com/JolivAB/samling.git
 cd samling
 npm install
 npm run build
@@ -71,7 +71,7 @@ You'll end up with a `public` directory with all the required assets for loading
 Note: Docker 17.05 or higher is required.
 
 ```bash
-git clone https://github.com/fujifish/samling.git
+git clone https://github.com/JolivAB/samling.git
 cd samling
 docker build -t fujifish/samling .
 docker run -d -p 8080:80 fujifish/samling
