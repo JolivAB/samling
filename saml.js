@@ -37,7 +37,7 @@ var algorithms = {
 };
 
 exports.parseRequest = function(options, request, callback) {
-  options.issuer = options.issuer || 'https://capriza.github.io/samling/samling.html';
+  options.issuer = options.issuer || 'https://jolivab.github.io/samling/';
   request = decodeURIComponent(request);
   var buffer = new Buffer(request, 'base64');
   zlib.inflateRaw(buffer, function(err, result) {

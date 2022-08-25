@@ -6877,15 +6877,15 @@ function fromByteArray (uint8) {
         var w = this.words[i];
         var word = (((w << off) | carry) & 0xffffff).toString(16);
         carry = (w >>> (24 - off)) & 0xffffff;
-        if (carry !== 0 || i !== this.length - 1) {
-          out = zeros[6 - word.length] + word + out;
-        } else {
-          out = word + out;
-        }
         off += 2;
         if (off >= 26) {
           off -= 26;
           i--;
+        }
+        if (carry !== 0 || i !== this.length - 1) {
+          out = zeros[6 - word.length] + word + out;
+        } else {
+          out = word + out;
         }
       }
       if (carry !== 0) {
@@ -47500,7 +47500,7 @@ var path = require('path');
 var Buffer = require('buffer').Buffer;
 var Parser = require('xmldom').DOMParser;
 var SignedXml = require('xml-crypto').SignedXml;
-var samlp = "<saml:Assertion xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" Version=\"2.0\" ID=\"\" IssueInstant=\"\">\n  <saml:Issuer></saml:Issuer>\n  <saml:Subject>\n    <saml:NameID Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\" />\n    <saml:SubjectConfirmation Method=\"urn:oasis:names:tc:SAML:2.0:cm:bearer\">\n      <saml:SubjectConfirmationData />\n    </saml:SubjectConfirmation>\n  </saml:Subject>\n  <saml:Conditions>\n  </saml:Conditions>\n  <saml:AuthnStatement AuthnInstant=\"\">\n    <saml:AuthnContext>\n      <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified</saml:AuthnContextClassRef>\n    </saml:AuthnContext>\n  </saml:AuthnStatement>\n</saml:Assertion>\n";
+var samlp = "<saml:Assertion xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" Version=\"2.0\" ID=\"\" IssueInstant=\"\">\r\n  <saml:Issuer></saml:Issuer>\r\n  <saml:Subject>\r\n    <saml:NameID Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\" />\r\n    <saml:SubjectConfirmation Method=\"urn:oasis:names:tc:SAML:2.0:cm:bearer\">\r\n      <saml:SubjectConfirmationData />\r\n    </saml:SubjectConfirmation>\r\n  </saml:Subject>\r\n  <saml:Conditions>\r\n  </saml:Conditions>\r\n  <saml:AuthnStatement AuthnInstant=\"\">\r\n    <saml:AuthnContext>\r\n      <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified</saml:AuthnContextClassRef>\r\n    </saml:AuthnContext>\r\n  </saml:AuthnStatement>\r\n</saml:Assertion>\r\n";
 
 function pemToCert(pem) {
   var cert = /-----BEGIN CERTIFICATE-----([^-]*)-----END CERTIFICATE-----/g.exec(pem.toString());
@@ -47530,7 +47530,7 @@ var algorithms = {
 };
 
 exports.parseRequest = function(options, request, callback) {
-  options.issuer = options.issuer || 'https://capriza.github.io/samling/samling.html';
+  options.issuer = options.issuer || 'https://jolivab.github.io/samling/';
   request = decodeURIComponent(request);
   var buffer = new Buffer(request, 'base64');
   zlib.inflateRaw(buffer, function(err, result) {
@@ -47730,8 +47730,8 @@ var crypto = require('crypto');
 window.CLIPBOARDJS = require('clipboard-js');
 window.SAML = require('./saml');
 const COOKIE_NAME = 'samling';
-var meta = Buffer("PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxtZDpFbnRpdHlEZXNjcmlwdG9yIHhtbG5zOm1kPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6bWV0YWRhdGEiIGVudGl0eUlEPSJfSE9TVElOR19VUkxfIj4KICA8bWQ6SURQU1NPRGVzY3JpcHRvciBXYW50QXV0aG5SZXF1ZXN0c1NpZ25lZD0iZmFsc2UiIHByb3RvY29sU3VwcG9ydEVudW1lcmF0aW9uPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiPgogICAgPG1kOktleURlc2NyaXB0b3IgdXNlPSJzaWduaW5nIj4KICAgICAgPGRzOktleUluZm8geG1sbnM6ZHM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyMiPgogICAgICAgIDxkczpYNTA5RGF0YT4KICAgICAgICAgIDxkczpYNTA5Q2VydGlmaWNhdGU+X0NFUlRJRklDQVRFXzwvZHM6WDUwOUNlcnRpZmljYXRlPgogICAgICAgIDwvZHM6WDUwOURhdGE+CiAgICAgIDwvZHM6S2V5SW5mbz4KICAgIDwvbWQ6S2V5RGVzY3JpcHRvcj4KICAgIDxtZDpTaW5nbGVMb2dvdXRTZXJ2aWNlIEJpbmRpbmc9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpiaW5kaW5nczpIVFRQLVJlZGlyZWN0IiBMb2NhdGlvbj0iX0hPU1RJTkdfVVJMXyIvPgogICAgPG1kOk5hbWVJREZvcm1hdD51cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoxLjE6bmFtZWlkLWZvcm1hdDplbWFpbEFkZHJlc3M8L21kOk5hbWVJREZvcm1hdD4KICAgIDxtZDpTaW5nbGVTaWduT25TZXJ2aWNlIEJpbmRpbmc9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpiaW5kaW5nczpIVFRQLVJlZGlyZWN0IiBMb2NhdGlvbj0iX0hPU1RJTkdfVVJMXyIvPgogIDwvbWQ6SURQU1NPRGVzY3JpcHRvcj4KPC9tZDpFbnRpdHlEZXNjcmlwdG9yPg==","base64").toString("utf8");
-var hostingUrl = Buffer("aHR0cHM6Ly9mdWppZmlzaC5naXRodWIuaW8vc2FtbGluZy9zYW1saW5nLmh0bWwK","base64").toString("utf8");
+var meta = Buffer("PD94bWwgdmVyc2lvbj0iMS4wIj8+DQo8bWQ6RW50aXR5RGVzY3JpcHRvciB4bWxuczptZD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm1ldGFkYXRhIiBlbnRpdHlJRD0iX0hPU1RJTkdfVVJMXyI+DQogIDxtZDpJRFBTU09EZXNjcmlwdG9yIFdhbnRBdXRoblJlcXVlc3RzU2lnbmVkPSJmYWxzZSIgcHJvdG9jb2xTdXBwb3J0RW51bWVyYXRpb249InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpwcm90b2NvbCI+DQogICAgPG1kOktleURlc2NyaXB0b3IgdXNlPSJzaWduaW5nIj4NCiAgICAgIDxkczpLZXlJbmZvIHhtbG5zOmRzPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIj4NCiAgICAgICAgPGRzOlg1MDlEYXRhPg0KICAgICAgICAgIDxkczpYNTA5Q2VydGlmaWNhdGU+X0NFUlRJRklDQVRFXzwvZHM6WDUwOUNlcnRpZmljYXRlPg0KICAgICAgICA8L2RzOlg1MDlEYXRhPg0KICAgICAgPC9kczpLZXlJbmZvPg0KICAgIDwvbWQ6S2V5RGVzY3JpcHRvcj4NCiAgICA8bWQ6U2luZ2xlTG9nb3V0U2VydmljZSBCaW5kaW5nPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6YmluZGluZ3M6SFRUUC1SZWRpcmVjdCIgTG9jYXRpb249Il9IT1NUSU5HX1VSTF8iLz4NCiAgICA8bWQ6TmFtZUlERm9ybWF0PnVybjpvYXNpczpuYW1lczp0YzpTQU1MOjEuMTpuYW1laWQtZm9ybWF0OmVtYWlsQWRkcmVzczwvbWQ6TmFtZUlERm9ybWF0Pg0KICAgIDxtZDpTaW5nbGVTaWduT25TZXJ2aWNlIEJpbmRpbmc9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpiaW5kaW5nczpIVFRQLVJlZGlyZWN0IiBMb2NhdGlvbj0iX0hPU1RJTkdfVVJMXyIvPg0KICA8L21kOklEUFNTT0Rlc2NyaXB0b3I+DQo8L21kOkVudGl0eURlc2NyaXB0b3I+","base64").toString("utf8");
+var hostingUrl = Buffer("aHR0cHM6Ly9mdWppZmlzaC5naXRodWIuaW8vc2FtbGluZy9zYW1saW5nLmh0bWwNCg==","base64").toString("utf8");
 
 var queryParams = {};
 
@@ -47823,9 +47823,9 @@ $(function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
 
-  var cert = localStorage.getItem('certVal') || Buffer("LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNwekNDQWhBQ0NRRHVGWDBEYjVpbGpEQU5CZ2txaGtpRzl3MEJBUXNGQURDQmx6RUxNQWtHQTFVRUJoTUMKVlZNeEV6QVJCZ05WQkFnTUNrTmhiR2xtYjNKdWFXRXhFakFRQmdOVkJBY01DVkJoYkc4Z1FXeDBiekVRTUE0RwpBMVVFQ2d3SFUyRnRiR2x1WnpFUE1BMEdBMVVFQ3d3R1UyRnNhVzVuTVJRd0VnWURWUVFEREF0allYQnlhWHBoCkxtTnZiVEVtTUNRR0NTcUdTSWIzRFFFSkFSWVhaVzVuYVc1bFpYSnBibWRBWTJGd2NtbDZZUzVqYjIwd0hoY04KTVRnd05URTFNVGd4TVRFd1doY05Namd3TlRFeU1UZ3hNVEV3V2pDQmx6RUxNQWtHQTFVRUJoTUNWVk14RXpBUgpCZ05WQkFnTUNrTmhiR2xtYjNKdWFXRXhFakFRQmdOVkJBY01DVkJoYkc4Z1FXeDBiekVRTUE0R0ExVUVDZ3dIClUyRnRiR2x1WnpFUE1BMEdBMVVFQ3d3R1UyRnNhVzVuTVJRd0VnWURWUVFEREF0allYQnlhWHBoTG1OdmJURW0KTUNRR0NTcUdTSWIzRFFFSkFSWVhaVzVuYVc1bFpYSnBibWRBWTJGd2NtbDZZUzVqYjIwd2daOHdEUVlKS29aSQpodmNOQVFFQkJRQURnWTBBTUlHSkFvR0JBSkVCTkRKS0g1blhyMGhaS2NTTklZMWw0SGVZTFBCRUtKTFh5QW5vCkZUZGdHcnZpNDBZeUl4OWxIaDBMYkRWV0NneEpwMjFCbUtsbDBDa2dtZUtpZHZHbHIzRlV3dEVUcm80NEwrU2cKbWppSk5iZnR2RnhoTmtnQTI2TzJHRFF1Qm9Rd2dTaWFnVmFkV1h3Sktrb2RIOHR4NG9qQlBZSzFwQk84ZkhmMwp3T254QWdNQkFBRXdEUVlKS29aSWh2Y05BUUVMQlFBRGdZRUFDSXlsaHZoNlQ3NThoY1pqQVFKaVY3ck1SZytPCm1iNjhpSkk0TDlmMGN5QmNKRU5SKzFMUU5nVUd5RkRNbTlXbTlvODFDdUlLQm5mcEVFMkpmY3M3NllWV1JKeTUKeEoxMUdGS0pKNVQwTkVCN3R4YlVRUG9KT2VOb0U3MzZsRjV2WXc2WUtwOGZKcVBXMEwyUExXZTlxVG44aHhwZApuam8zazZyNWdYeWw4dGs9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K","base64").toString("utf8");
+  var cert = localStorage.getItem('certVal') || Buffer("LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlES0RDQ0FwR2dBd0lCQWdJQkFUQU5CZ2txaGtpRzl3MEJBUVVGQURCK01Sc3dHUVlEVlFRREV4SkJiR1poDQpJR1ZEWVhKbElGTmhiV3hwYm1jeEN6QUpCZ05WQkFZVEFsTkZNUlF3RWdZRFZRUUlFd3RXWVhOMGJXRnViR0Z1DQpaREVSTUE4R0ExVUVCeE1JVm1GemRHVnlZWE14RXpBUkJnTlZCQW9UQ2tGc1ptRWdaVU5oY21VeEZEQVNCZ05WDQpCQXNUQzBSbGRtVnNiM0J0Wlc1ME1CNFhEVEl5TURneU5ERXdNak0wTlZvWERUSXpNRGd5TkRFd01qTTBOVm93DQpmakViTUJrR0ExVUVBeE1TUVd4bVlTQmxRMkZ5WlNCVFlXMXNhVzVuTVFzd0NRWURWUVFHRXdKVFJURVVNQklHDQpBMVVFQ0JNTFZtRnpkRzFoYm14aGJtUXhFVEFQQmdOVkJBY1RDRlpoYzNSbGNtRnpNUk13RVFZRFZRUUtFd3BCDQpiR1poSUdWRFlYSmxNUlF3RWdZRFZRUUxFd3RFWlhabGJHOXdiV1Z1ZERDQm56QU5CZ2txaGtpRzl3MEJBUUVGDQpBQU9CalFBd2dZa0NnWUVBbHRxYWNzQ0p5OE5MMmdONERNN1dWcGJyVFhlRENucGhCU1lnd0NoLzBkSzdieTJPDQpPdFJzMXhCRGlKcUFVVjkyL21RRVA0UmNGN0NxT2M2VGpTU2NZYnZDL1FWOVR5TnNSbElrc1BHT2lDL1NHL3liDQplT2x3amlwdFlYRDZMT2JKdDlaczFmRTZJdVN5R0sxaXFzV1JTUlV0UWFZYXpBR2xESmZ2b25HNG1na0NBd0VBDQpBYU9CdFRDQnNqQU1CZ05WSFJNRUJUQURBUUgvTUFzR0ExVWREd1FFQXdJQzlEQTdCZ05WSFNVRU5EQXlCZ2dyDQpCZ0VGQlFjREFRWUlLd1lCQlFVSEF3SUdDQ3NHQVFVRkJ3TURCZ2dyQmdFRkJRY0RCQVlJS3dZQkJRVUhBd2d3DQpFUVlKWUlaSUFZYjRRZ0VCQkFRREFnRDNNQ1lHQTFVZEVRUWZNQjJHRzJoMGRIQTZMeTloYkdaaFpXTmhjbVV1DQpjMlV2YzJGdGJHbHVaekFkQmdOVkhRNEVGZ1FVSWZOUW1NaERxUk5KZFBpd0Rtc1hZczFOZUNFd0RRWUpLb1pJDQpodmNOQVFFRkJRQURnWUVBWnhRcmQyOFc5WFpHazVvc1hjdjNPWHdjZkVUTzJOVXdPMGJMVFU2cW1QZkR3VDVYDQpMMzRJMkNIR1JWaGFnWjBWK2g1T3RENWZVYit1bzZ3NHV3SHorSEJxcC9RYWZVODVSVEdkM0czLzZlS09nZC9PDQpyMHBtNnlHR0NDMVJFN1QwTjdRMzNBWTBoWklXMXJuVFl6ZmVsbjdlUE94a0drOUU2NGZiU1RQR0Zpbz0NCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0NCg==","base64").toString("utf8");
   $('#signatureCert').val(cert);
-  $('#signatureKey').val(localStorage.getItem('privateKeyVal') || Buffer("LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlDWFFJQkFBS0JnUUNSQVRReVNoK1oxNjlJV1NuRWpTR05aZUIzbUN6d1JDaVMxOGdKNkJVM1lCcTc0dU5HCk1pTWZaUjRkQzJ3MVZnb01TYWR0UVppcFpkQXBJSm5pb25ieHBhOXhWTUxSRTY2T09DL2tvSm80aVRXMzdieGMKWVRaSUFOdWp0aGcwTGdhRU1JRW9tb0ZXblZsOENTcEtIUi9MY2VLSXdUMkN0YVFUdkh4Mzk4RHA4UUlEQVFBQgpBb0dBUWw0MnNiM1RjT3FUUTUzcnpCWjhnT2RjTWVEbzBKK2hvblE1RHErMjVqMktmdXg5OGFjSkJGbVh5dHRyCmo0M3QwMm55dzhMK1NLcGMrRFgvdVFkN1FMTS91WU1HT2QyREljL0taaW5KN3IxTVdYUXF1b0Rpekw3L0tJdm4KdlpwcWQyTnl6eTVQcHpTeXB6NldMdjFoWkVVc2VWMFdLdWtSL3h2NHBOZmltMEVDUVFEcVMyNU5ka1VkWk1wVgpaQUpjT0pJUGVpK1F0WXJ0bWxmOW1pcjJsVitlOHAxc0p4Vzc3RGFLZnB6NU5IZU5FT3o5T1pwdnhaL2xyTWMxClpiVTFiM2d0QWtFQW5uQW9qb1Y3S3lBRk0yMmxpTUpCaVU2a3VrRnh1M1ZRVE9SWThJZlY4SzFuYzFMcW5JQmsKQVVyUFdTeC9lWTdXZXN4ZzUrSkNlU1ZIK0hhQ3RqenZWUUpBQm5wWGJtVGF2RmxSRHROWkRWdXpEaUordGkyTwp6Y3I2cTlSYlk3MzFpdHVDWnI4ZDVyZzlPYzhPWUFXSFdLc2pJazA1YStXMjZnN0E0MFVRb1kyWGNRSkJBSmh6CnljS2gxQXVDQ3g4YVVWOFB0R24vdjJmdFV4ZVM0WXFyYXAwL3gyK0lHM1FQZytyRmEvVUdYQkF0VGhmVWhyS3cKZUVxSUgzaGNsQzBUTStGUkx1VUNRUUNsbjduclowSEtqZXVYa3J5NTFnM0ZEN3dkWEl5U2pmNk9jVC9sMkc5SwpVZlFWU0dnQmw1R1BBOGdrTzQwblJXMWhDTGZ5RGVkeWo4SXVySUI2NzlIOQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=","base64").toString("utf8"));
+  $('#signatureKey').val(localStorage.getItem('privateKeyVal') || Buffer("LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQ0KTUlJQ1hRSUJBQUtCZ1FDVzJwcHl3SW5MdzB2YUEzZ016dFpXbHV0TmQ0TUtlbUVGSmlEQUtIL1IwcnR2TFk0Ng0KMUd6WEVFT0ltb0JSWDNiK1pBUS9oRndYc0tvNXpwT05KSnhodThMOUJYMVBJMnhHVWlTdzhZNklMOUliL0p0NA0KNlhDT0ttMWhjUG9zNXNtMzFtelY4VG9pNUxJWXJXS3F4WkZKRlMxQnBock1BYVVNbCsraWNiaWFDUUlEQVFBQg0KQW9HQVhlenNQMGljUTA5czJlaFJCZ0IrdWRrcjFzYnp3MEZoU1JodFNkZXRoaElrZTl1c2MvcXhiZEtGaWZkUQ0KcjltMXVEekQzRnhvRHFRRHlReFRHSTFVQkJ4NVFXc1ExS0RUdTZ4YWdYNTVGaGdwWjNHWTJpblpyWElWVGdJbw0KNmxpd1p4citxdjNkb0k4Tm1sQ05ER0EvZ0JEQ2RtdTFjdk5yWUdvRU5oRkxQbVVDUVFEVzBpYUhCZ3JEOXl1WQ0KV3VscDlhVi9HNHBlZ21XNmlIaFFyU0phMW5xM0p5R0NKbCttOHBxMHpQZ1RFVTVvMlpoV1QyWkE4MUlRaTVCWQ0KM041QWR5dHZBa0VBczhWckFRVllHWVA0VTRaczdLaENSb093OWc5cU5VbTR3eWVPT0hVUU0xZ3VrKzRYR2dMNw0KZ0IzSWYrd0NTMlBuRXhUKzdCalBlcEx3a2xXZ0J3TTJCd0pCQUxPdmdHNThqVkN4VkpQUnAxL3NDd3d3MnlLRw0KYTlVRkJhNWx3MUM4Q2xWY3M5aUxoSUsrZHMwNGpXQlZuNEp3VDg0U0IvUFlFeEtueW91cDQzV0V1SjBDUVFDcQ0KUVdwYUNTbXE0S1dxMVVFTDBUOFRjVjJEYkkzMThlQWVVN1FLSERRL3JHQlFrY2tuUlhQVG5tRnBaYWUycHVNTg0KMjNDalFjd2VGbFBwQTFjUHpTYTVBa0JRYitvRlBFbFd6RUNLeGprNnYrRHBMTUU3RUNNZE5MMU5pTE04WEYyTQ0KZzZGWEdldnREeVJacFN4Z2tFeGF1bXR0SkNtVUMrMGk4YlFiS1kyNWR2Wm0NCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tDQo=","base64").toString("utf8"));
   _updateMetadata(cert);
 
   var params = location.search.split('?');
@@ -47892,22 +47892,22 @@ $(function() {
     cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 1);
     var attrs = [{
       name: 'commonName',
-      value: 'capriza.com'
+      value: 'Alfa eCare Samling'
     }, {
       name: 'countryName',
-      value: 'US'
+      value: 'SE'
     }, {
       shortName: 'ST',
-      value: 'Virginia'
+      value: 'Vastmanland'
     }, {
       name: 'localityName',
-      value: 'Blacksburg'
+      value: 'Vasteras'
     }, {
       name: 'organizationName',
-      value: 'Samling'
+      value: 'Alfa eCare'
     }, {
       shortName: 'OU',
-      value: 'Samling'
+      value: 'Development'
     }];
     cert.setSubject(attrs);
     cert.setIssuer(attrs);
@@ -47941,7 +47941,7 @@ $(function() {
       name: 'subjectAltName',
       altNames: [{
         type: 6, // URI
-        value: 'http://capriza.com/samling'
+        value: 'https://jolivab.github.io/samling/'
       }]
     }, {
       name: 'subjectKeyIdentifier'

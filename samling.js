@@ -165,22 +165,22 @@ $(function() {
     cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 1);
     var attrs = [{
       name: 'commonName',
-      value: 'capriza.com'
+      value: 'Alfa eCare Samling'
     }, {
       name: 'countryName',
-      value: 'US'
+      value: 'SE'
     }, {
       shortName: 'ST',
-      value: 'Virginia'
+      value: 'Vastmanland'
     }, {
       name: 'localityName',
-      value: 'Blacksburg'
+      value: 'Vasteras'
     }, {
       name: 'organizationName',
-      value: 'Samling'
+      value: 'Alfa eCare'
     }, {
       shortName: 'OU',
-      value: 'Samling'
+      value: 'Development'
     }];
     cert.setSubject(attrs);
     cert.setIssuer(attrs);
@@ -214,7 +214,7 @@ $(function() {
       name: 'subjectAltName',
       altNames: [{
         type: 6, // URI
-        value: 'http://capriza.com/samling'
+        value: 'https://jolivab.github.io/samling/'
       }]
     }, {
       name: 'subjectKeyIdentifier'
