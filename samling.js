@@ -3,7 +3,7 @@ var fs = require('fs');
 window.CLIPBOARDJS = require('clipboard-js');
 window.SAML = require('./saml');
 const COOKIE_NAME = 'samling';
-var meta = fs.readFileSync('./public/metadata.xml.tpl').toString("utf8");
+var meta = fs.readFileSync('./metadata.xml.tpl').toString("utf8");
 var hostingUrl = fs.readFileSync('./hostingUrl.txt').toString("utf8");
 
 var queryParams = {};
