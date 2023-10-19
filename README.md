@@ -25,7 +25,7 @@ The IdP metadata is available if you go to https://jolivab.github.io/samling/ an
 In short:
 
 * IdP Location and Issuer: https://jolivab.github.io/samling/
-* IdP Certificate Thumbprint: 5566FE04C808D0298BB121498B842D0796F9CACF
+* IdP Certificate Thumbprint: DC81B154F4C7B7FC96BE84C2F281EB1AE4FA9CF5
 
 ### Manual Usage
 
